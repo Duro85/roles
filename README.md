@@ -1,6 +1,6 @@
 # Roles And Permissions For Laravel 5
 
-Powerful package for handling roles and permissions in Laravel 5 update and mantained by Michelangelo Belfiore to support >= 5.3 versions.
+Powerful package for handling roles and permissions in Laravel 5 forked from romanbican/roles by Roman Bican, updated and mantained by Michelangelo Belfiore to support >= 5.3 versions.
 
 - [Installation](#installation)
     - [Composer](#composer)
@@ -388,7 +388,7 @@ You can change connection for models, slug separator, models path and there is a
 
 ## More Information
 
-For more information, please have a look at [HasRoleAndPermission](https://github.com/Duro85/roles/blob/master/src/Bican/Roles/Contracts/HasRoleAndPermission.php) contract.
+For more information, please have a look at [HasRoleAndPermission](https://github.com/Duro85/roles/blob/master/src/Duro85/Roles/Contracts/HasRoleAndPermission.php) contract.
 
 ## License
 
