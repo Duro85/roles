@@ -1,11 +1,11 @@
 <?php
 
-namespace Bican\Roles\Models;
+namespace Duro85\Roles\Models;
 
-use Bican\Roles\Traits\Slugable;
+use Duro85\Roles\Traits\Slugable;
 use Illuminate\Database\Eloquent\Model;
-use Bican\Roles\Traits\PermissionHasRelations;
-use Bican\Roles\Contracts\PermissionHasRelations as PermissionHasRelationsContract;
+use Duro85\Roles\Traits\PermissionHasRelations;
+use Duro85\Roles\Contracts\PermissionHasRelations as PermissionHasRelationsContract;
 
 class Permission extends Model implements PermissionHasRelationsContract
 {

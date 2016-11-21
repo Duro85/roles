@@ -1,6 +1,6 @@
 <?php
 
-namespace Bican\Roles\Contracts;
+namespace Duro85\Roles\Contracts;
 
 interface PermissionHasRelations
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bican\Roles\Traits;
+namespace Duro85\Roles\Traits;
 
 trait RoleHasRelations
 {
@@ -27,7 +27,7 @@ trait RoleHasRelations
     /**
      * Attach permission to a role.
      *
-     * @param int|\Bican\Roles\Models\Permission $permission
+     * @param int|\Duro85\Roles\Models\Permission $permission
      * @return int|bool
      */
     public function attachPermission($permission)
@@ -38,7 +38,7 @@ trait RoleHasRelations
     /**
      * Detach permission from a role.
      *
-     * @param int|\Bican\Roles\Models\Permission $permission
+     * @param int|\Duro85\Roles\Models\Permission $permission
      * @return int
      */
     public function detachPermission($permission)

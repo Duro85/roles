@@ -1,6 +1,6 @@
 <?php
 
-namespace Bican\Roles\Exceptions;
+namespace Duro85\Roles\Exceptions;
 
 class RoleDeniedException extends AccessDeniedException
 {

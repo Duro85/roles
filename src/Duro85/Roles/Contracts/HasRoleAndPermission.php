@@ -1,6 +1,6 @@
 <?php
 
-namespace Bican\Roles\Contracts;
+namespace Duro85\Roles\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,7 +27,7 @@ interface HasRoleAndPermission
      * @param bool $all
      * @return bool
      */
-    public function is($role, $all = false);
+    public function isRole($role, $all = false);
 
     /**
      * Check if the user has all roles.
@@ -56,7 +56,7 @@ interface HasRoleAndPermission
     /**
      * Attach role to a user.
      *
-     * @param int|\Bican\Roles\Models\Role $role
+     * @param int|\Duro85\Roles\Models\Role $role
      * @return null|bool
      */
     public function attachRole($role);
@@ -64,7 +64,7 @@ interface HasRoleAndPermission
     /**
      * Detach role from a user.
      *
-     * @param int|\Bican\Roles\Models\Role $role
+     * @param int|\Duro85\Roles\Models\Role $role
      * @return int
      */
     public function detachRole($role);
@@ -151,7 +151,7 @@ interface HasRoleAndPermission
     /**
      * Attach permission to a user.
      *
-     * @param int|\Bican\Roles\Models\Permission $permission
+     * @param int|\Duro85\Roles\Models\Permission $permission
      * @return null|bool
      */
     public function attachPermission($permission);
@@ -159,7 +159,7 @@ interface HasRoleAndPermission
     /**
      * Detach permission from a user.
      *
-     * @param int|\Bican\Roles\Models\Permission $permission
+     * @param int|\Duro85\Roles\Models\Permission $permission
      * @return int
      */
     public function detachPermission($permission);

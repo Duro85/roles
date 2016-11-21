@@ -1,12 +1,16 @@
 {
-    "name": "bican/roles",
-    "description": "Powerful package for handling roles and permissions in Laravel 5.",
+    "name": "duro85/roles",
+    "description": "Powerful package for handling roles and permissions in Laravel 5 forked from romanbican/roles ad update to work with Laravel >= 5.3.",
     "keywords": ["roles", "permissions", "acl", "auth", "laravel", "illuminate"],
     "license": "MIT",
     "authors": [
         {
             "name": "Roman Bičan",
             "email": "romanbican@seznam.cz"
+        },
+        {
+            "name": "Michelangelo Belfiore",
+            "email": "michelangelo.belfiore@gmail.com"
         }
     ],
     "require": {
@@ -15,7 +19,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Bican\\Roles": "src/"
+            "Duro85\\Roles": "src/"
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bican\Roles\Traits;
+namespace Duro85\Roles\Traits;
 
 trait PermissionHasRelations
 {

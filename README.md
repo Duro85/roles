@@ -1,6 +1,6 @@
 # Roles And Permissions For Laravel 5
 
-Powerful package for handling roles and permissions in Laravel 5 (5.1 and also 5.0).
+Powerful package for handling roles and permissions in Laravel 5 update and mantained by Michelangelo Belfiore to support >= 5.3 versions.
 
 - [Installation](#installation)
     - [Composer](#composer)
@@ -36,7 +36,7 @@ Pull this package in through Composer (file `composer.json`).
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
-        "bican/roles": "2.1.*"
+        "duro85/roles": "2.1.*"
     }
 }
 ```
@@ -64,7 +64,7 @@ Add the package to your application service providers in `config/app.php` file.
     /**
      * Third Party Service Providers...
      */
-    Bican\Roles\RolesServiceProvider::class,
+    Duro85\Roles\RolesServiceProvider::class,
 
 ],
 ```
@@ -73,8 +73,8 @@ Add the package to your application service providers in `config/app.php` file.
 
 Publish the package config file and migrations to your application. Run these commands inside your terminal.
 
-    php artisan vendor:publish --provider="Bican\Roles\RolesServiceProvider" --tag=config
-    php artisan vendor:publish --provider="Bican\Roles\RolesServiceProvider" --tag=migrations
+    php artisan vendor:publish --provider="Duro85\Roles\RolesServiceProvider" --tag=config
+    php artisan vendor:publish --provider="Duro85\Roles\RolesServiceProvider" --tag=migrations
 
 And also run migrations.
 
@@ -87,8 +87,8 @@ And also run migrations.
 Include `HasRoleAndPermission` trait and also implement `HasRoleAndPermission` contract inside your `User` model.
 
 ```php
-use Bican\Roles\Traits\HasRoleAndPermission;
-use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
+use Duro85\Roles\Traits\HasRoleAndPermission;
+use Duro85\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasRoleAndPermissionContract
 {
@@ -102,7 +102,7 @@ And that's it!
 ### Creating Roles
 
 ```php
-use Bican\Roles\Models\Role;
+use Duro85\Roles\Models\Role;
 
 $adminRole = Role::create([
     'name' => 'Admin',
@@ -141,7 +141,7 @@ $user->detachAllRoles(); // in case you want to detach all roles
 You can now check if the user has required role.
 
 ```php
-if ($user->is('admin')) { // you can pass an id or slug
+if ($user->isRole('admin')) { // you can pass an id or slug
     // or alternatively $user->hasRole('admin')
 }
 ```
@@ -157,20 +157,20 @@ if ($user->isAdmin()) {
 And of course, there is a way to check for multiple roles:
 
 ```php
-if ($user->is('admin|moderator')) { 
+if ($user->isRole('admin|moderator')) { 
     /*
     | Or alternatively:
-    | $user->is('admin, moderator'), $user->is(['admin', 'moderator']),
+    | $user->isRole('admin, moderator'), $user->isRole(['admin', 'moderator']),
     | $user->isOne('admin|moderator'), $user->isOne('admin, moderator'), $user->isOne(['admin', 'moderator'])
     */
 
     // if user has at least one role
 }
 
-if ($user->is('admin|moderator', true)) {
+if ($user->isRole('admin|moderator', true)) {
     /*
     | Or alternatively:
-    | $user->is('admin, moderator', true), $user->is(['admin', 'moderator'], true),
+    | $user->isRole('admin, moderator', true), $user->isRole(['admin', 'moderator'], true),
     | $user->isAll('admin|moderator'), $user->isAll('admin, moderator'), $user->isAll(['admin', 'moderator'])
     */
 
@@ -197,7 +197,7 @@ if ($user->level() > 4) {
 It's very simple thanks to `Permission` model.
 
 ```php
-use Bican\Roles\Models\Permission;
+use Duro85\Roles\Models\Permission;
 
 $createUsersPermission = Permission::create([
     'name' => 'Create users',
@@ -217,7 +217,7 @@ You can attach permissions to a role or directly to a specific user (and of cour
 
 ```php
 use App\User;
-use Bican\Roles\Models\Role;
+use Duro85\Roles\Models\Role;
 
 $role = Role::find($roleId);
 $role->attachPermission($createUsersPermission); // permission attached to a role
@@ -264,7 +264,7 @@ Let's say you have an article and you want to edit it. This article belongs to a
 
 ```php
 use App\Article;
-use Bican\Roles\Models\Permission;
+use Duro85\Roles\Models\Permission;
 
 $editArticlesPermission = Permission::create([
     'name' => 'Edit articles',
@@ -294,7 +294,7 @@ if ($user->allowed('edit.articles', $article, false)) { // now owner check is di
 There are four Blade extensions. Basically, it is replacement for classic if statements.
 
 ```php
-@role('admin') // @if(Auth::check() && Auth::user()->is('admin'))
+@role('admin') // @if(Auth::check() && Auth::user()->isRole('admin'))
     // user is admin
 @endrole
 
@@ -310,7 +310,7 @@ There are four Blade extensions. Basically, it is replacement for classic if sta
     // show edit button
 @endallowed
 
-@role('admin|moderator', 'all') // @if(Auth::check() && Auth::user()->is('admin|moderator', 'all'))
+@role('admin|moderator', 'all') // @if(Auth::check() && Auth::user()->isRole('admin|moderator', 'all'))
     // user is admin and also moderator
 @else
     // something else
@@ -331,9 +331,9 @@ protected $routeMiddleware = [
     'auth' => \App\Http\Middleware\Authenticate::class,
     'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
     'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-    'role' => \Bican\Roles\Middleware\VerifyRole::class,
-    'permission' => \Bican\Roles\Middleware\VerifyPermission::class,
-    'level' => \Bican\Roles\Middleware\VerifyLevel::class,
+    'role' => \Duro85\Roles\Middleware\VerifyRole::class,
+    'permission' => \Duro85\Roles\Middleware\VerifyPermission::class,
+    'level' => \Duro85\Roles\Middleware\VerifyLevel::class,
 ];
 ```
 
@@ -359,7 +359,7 @@ $router->get('/example', [
 ]);
 ```
 
-It throws `\Bican\Roles\Exceptions\RoleDeniedException`, `\Bican\Roles\Exceptions\PermissionDeniedException` or `\Bican\Roles\Exceptions\LevelDeniedException` exceptions if it goes wrong.
+It throws `\Duro85\Roles\Exceptions\RoleDeniedException`, `\Duro85\Roles\Exceptions\PermissionDeniedException` or `\Duro85\Roles\Exceptions\LevelDeniedException` exceptions if it goes wrong.
 
 You can catch these exceptions inside `app/Exceptions/Handler.php` file and do whatever you want.
 
@@ -373,7 +373,7 @@ You can catch these exceptions inside `app/Exceptions/Handler.php` file and do w
  */
 public function render($request, Exception $e)
 {
-    if ($e instanceof \Bican\Roles\Exceptions\RoleDeniedException) {
+    if ($e instanceof \Duro85\Roles\Exceptions\RoleDeniedException) {
         // you can for example flash message, redirect...
         return redirect()->back();
     }
@@ -388,7 +388,7 @@ You can change connection for models, slug separator, models path and there is a
 
 ## More Information
 
-For more information, please have a look at [HasRoleAndPermission](https://github.com/romanbican/roles/blob/master/src/Bican/Roles/Contracts/HasRoleAndPermission.php) contract.
+For more information, please have a look at [HasRoleAndPermission](https://github.com/Duro85/roles/blob/master/src/Bican/Roles/Contracts/HasRoleAndPermission.php) contract.
 
 ## License
 

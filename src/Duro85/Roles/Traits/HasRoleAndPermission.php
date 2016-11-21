@@ -1,6 +1,6 @@
 <?php
 
-namespace Bican\Roles\Traits;
+namespace Duro85\Roles\Traits;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
@@ -49,7 +49,7 @@ trait HasRoleAndPermission
      * @param bool $all
      * @return bool
      */
-    public function is($role, $all = false)
+    public function isRole($role, $all = false)
     {
         if ($this->isPretendEnabled()) {
             return $this->pretend('is');
@@ -101,14 +101,14 @@ trait HasRoleAndPermission
     public function hasRole($role)
     {
         return $this->getRoles()->contains(function ($key, $value) use ($role) {
-            return $role == $value->id || Str::is($role, $value->slug);
+            return $role == $value->id || Str::isRole($role, $value->slug);
         });
     }
 
     /**
      * Attach role to a user.
      *
-     * @param int|\Bican\Roles\Models\Role $role
+     * @param int|\Duro85\Roles\Models\Role $role
      * @return null|bool
      */
     public function attachRole($role)
@@ -119,7 +119,7 @@ trait HasRoleAndPermission
     /**
      * Detach role from a user.
      *
-     * @param int|\Bican\Roles\Models\Role $role
+     * @param int|\Duro85\Roles\Models\Role $role
      * @return int
      */
     public function detachRole($role)
@@ -249,7 +249,7 @@ trait HasRoleAndPermission
     public function hasPermission($permission)
     {
         return $this->getPermissions()->contains(function ($key, $value) use ($permission) {
-            return $permission == $value->id || Str::is($permission, $value->slug);
+            return $permission == $value->id || Str::isRole($permission, $value->slug);
         });
     }
 
@@ -298,7 +298,7 @@ trait HasRoleAndPermission
     /**
      * Attach permission to a user.
      *
-     * @param int|\Bican\Roles\Models\Permission $permission
+     * @param int|\Duro85\Roles\Models\Permission $permission
      * @return null|bool
      */
     public function attachPermission($permission)
@@ -309,7 +309,7 @@ trait HasRoleAndPermission
     /**
      * Detach permission from a user.
      *
-     * @param int|\Bican\Roles\Models\Permission $permission
+     * @param int|\Duro85\Roles\Models\Permission $permission
      * @return int
      */
     public function detachPermission($permission)
@@ -385,7 +385,7 @@ trait HasRoleAndPermission
     public function __call($method, $parameters)
     {
         if (starts_with($method, 'is')) {
-            return $this->is(snake_case(substr($method, 2), config('roles.separator')));
+            return $this->isRole(snake_case(substr($method, 2), config('roles.separator')));
         } elseif (starts_with($method, 'can')) {
             return $this->can(snake_case(substr($method, 3), config('roles.separator')));
         } elseif (starts_with($method, 'allowed')) {
